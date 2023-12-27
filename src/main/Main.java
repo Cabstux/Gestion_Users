@@ -1,17 +1,66 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
+package main;
+import java.util.Scanner;
+import dao.IUtilisateurs;
+import dao.UtilisateursImpl;
+import entities.Utilisateurs;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Opt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Ctrl+R or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        boolean rep=false;
+        String email,password;
+        int id, get;
+        IUtilisateurs dao=new UtilisateursImpl();
+        System.out.println("Bienvenue dans gestion-users application");
 
-            // Press Ctrl+D to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
-        }
+        Scanner sc=new Scanner(System.in);
+        do{
+            System.out.println("1. Ajouter  Utilisateurs\n" +
+                    "2. Montrer Utilisateurs\n" +
+                    "3. Delete the Utilisateurs\n");
+
+            System.out.println("Saisir votre choix: ");
+            int ch=sc.nextInt();
+            switch (ch){
+                case 1:
+                    Utilisateurs ut=new Utilisateurs();
+                    System.out.println("Saisir ID : ");
+                    id=sc.nextInt();
+                    System.out.println("Saisir email ");
+                    email=sc.nextLine();
+                    System.out.println("Saisir  password");
+                    password=sc.nextLine();
+                    ut.setId(id);
+                    ut.setEmail(email);
+                    ut.setPassword(password);
+                    dao.createUtilisateurs(ut);
+                    break;
+                case 2:
+                    dao.showAllUtilisateurs();
+                    break;
+
+                case 3:
+                    System.out.println("Saisir the id to delete");
+                    id=sc.nextInt();
+                    dao.deleteUtilisateurs(id);
+                    break;
+
+                case 4:
+                    System.out.println("Merci et a la prochaine :) !!!");
+                    System.exit(0);
+                default:
+                    System.out.println("Erreur. Veuillez verifier votre choix !");
+                    break;
+
+            }
+
+            System.out.println("TAPPER 1 POUR CONTINUER");
+            get = sc.nextInt();
+            rep=get==1? true : false;
+
+        }while (rep);
+
+
     }
 }

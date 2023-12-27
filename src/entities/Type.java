@@ -1,2 +1,5 @@
-package entities;public enum Type {
+package entities;
+
+public enum Type {
+    ADMIN, UTILISATEUR, SUPERUTILISATEUR;
 }
